@@ -1,5 +1,7 @@
 import expenses from '../fixtures/expenses';
 import expensesReducer from '../../reducers/expenses';
+import { setExpenses } from '../../actions/expenses';
+import moment from 'moment';
 
 test('default case', () => {
     const result = expensesReducer(undefined, { type: '@@INIT' });
@@ -65,4 +67,15 @@ test('edit expense with incorrect id', () => {
     };
     const state = expensesReducer(expenses, action);
     expect(state).toEqual(expenses);
-})
+});
+
+test('should set expenses', () => {
+    const action = {
+        type: 'SET_EXPENSES',
+        expenses: [expenses[1]]
+    };
+
+    const state = expensesReducer(expenses, action);
+    expect(state).toEqual([expenses[1]]);
+});
+
